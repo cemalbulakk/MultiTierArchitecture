@@ -1,7 +1,29 @@
+using System.Reflection;
+using Core.Repositories;
+using Core.Services;
+using Core.UnitOfWorks;
+using Microsoft.EntityFrameworkCore;
+using Repository;
+using Repository.Repositories;
+using Repository.UnitOfWorks;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnectionString");
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlServer(connectionString, x =>
+    {
+        x.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext))?.GetName().Name);
+    });
+});
+
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+//builder.Services.AddScoped(typeof(IService<>), typeof(Service<>));
+
 
 var app = builder.Build();
 

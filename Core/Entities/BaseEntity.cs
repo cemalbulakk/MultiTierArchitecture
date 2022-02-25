@@ -2,13 +2,7 @@
 
 public abstract class BaseEntity
 {
-    protected BaseEntity()
-    {
-        UpdatedDate = DateTime.Now;
-        Id = Guid.NewGuid().ToString("N");
-    }
-
-    public string Id { get; set; }
+    public string Id { get; set; } = Guid.NewGuid().ToString("N");
     public DateTime CreatedDate { get; set; }
     public DateTime UpdatedDate { get; set; }
 }
