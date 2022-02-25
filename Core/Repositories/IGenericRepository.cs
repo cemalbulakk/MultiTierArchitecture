@@ -4,8 +4,8 @@ namespace Core.Repositories;
 
 public interface IGenericRepository<T> where T : class
 {
-    Task<T> GetByIdAsync(string id);
-    Task<IEnumerable<T>> GetAll();
+    Task<T?> GetByIdAsync(string id);
+    IQueryable<T> GetAll();
     IQueryable<T> GetWhere(Expression<Func<T, bool>> predicate);
     Task<bool> AnyAsync(Expression<Func<T, bool>> predicate);
     Task AddAsync(T entity);
