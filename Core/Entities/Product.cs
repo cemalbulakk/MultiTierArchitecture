@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Core;
+﻿namespace Core.Entities;
 
 public class Product : BaseEntity
 {
